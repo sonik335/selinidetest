@@ -24,13 +24,12 @@ public class CardDeliveryOrderTest {
         String planningDate = generateDate(4);
         open("http://localhost:9999/");
         $("[placeholder='Город']").setValue("Казань");
-        $("[placeholder='Дата встречи']").sendKeys(Keys.chord(Keys.SHIFT,Keys.HOME),Keys.DELETE);
+        $x("//input[@placeholder='Дата встречи']").sendKeys(Keys.chord(Keys.SHIFT,Keys.HOME),Keys.DELETE);
         $("[data-test-id='date'] input").setValue(planningDate);
         $("[name='name']").setValue("Андрей Иванов");
         $("[name='phone']").setValue("+79179139319");
         $("[data-test-id=agreement]").click();
         $$("button").find(exactText("Забронировать")).click();
-
         $("[data-test-id='notification']").should(appear, Duration.ofSeconds(14));
 
 
