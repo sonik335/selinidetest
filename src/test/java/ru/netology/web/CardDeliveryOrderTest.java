@@ -31,7 +31,7 @@ public class CardDeliveryOrderTest {
         $("[data-test-id=agreement]").click();
         $$("button").find(exactText("Забронировать")).click();
 
-        $("[data-test-id='notification']").should(visible, Duration.ofSeconds(14));
+        $("[data-test-id='notification']").should(appear, Duration.ofSeconds(14));
 
 
     }
