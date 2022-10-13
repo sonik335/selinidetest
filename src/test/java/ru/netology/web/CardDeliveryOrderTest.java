@@ -1,6 +1,7 @@
 package ru.netology.web;
 
 
+import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
@@ -22,15 +23,17 @@ public class CardDeliveryOrderTest {
     @Test
     void testingTheCardDeliveryOrderForm() {
         String planningDate = generateDate(4);
+        String notification = "Встреча успешно забронирована на " + planningDate;
         open("http://localhost:9999/");
         $("[placeholder='Город']").setValue("Казань");
-        $x("//input[@placeholder='Дата встречи']").sendKeys(Keys.chord(Keys.SHIFT,Keys.HOME),Keys.DELETE);
+        $("[placeholder='Дата встречи']").sendKeys(Keys.chord(Keys.SHIFT,Keys.HOME),Keys.DELETE);
         $("[data-test-id='date'] input").setValue(planningDate);
         $("[name='name']").setValue("Андрей Иванов");
         $("[name='phone']").setValue("+79179139319");
         $("[data-test-id=agreement]").click();
         $$("button").find(exactText("Забронировать")).click();
-        $("[data-test-id='notification']").should(appear, Duration.ofSeconds(14));
+        $("[data-test-id='notification']").should(appear, Duration.ofSeconds(14)).should(Condition.text(notification));
+
 
 
     }
